@@ -1,0 +1,11 @@
+{
+    "verbose": true,
+    
+    "log": {
+        "console": {
+            "level":    "info",
+            "colorize": true,
+            "json":     false
+        }
+    }
+}

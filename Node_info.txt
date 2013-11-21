@@ -1,0 +1,40 @@
+Node.js Notes
+
+broadway:
+    broadway = require('broadway');
+    app = new broadway.App( { config } );
+    app.use(...); // plugin: Erweiterung von app um weitere Methoden
+    app.use(...); // plugin: function name, attach, detach, init
+    app.init();
+    app.do_something();
+    
+    plugins:
+        config: app.config.* (siehe nconf/provider)
+        log:    event: "log::*" oder app.log.info/warn/...
+        directories, exeptions, inspect
+
+minioc:
+    minioc = require('minioc');
+    minioc.register('name').as ... ; // value, factory, constructor
+    minioc.get('name'). ...;
+    minioc .can .has .when .get 
+           .register .fulfill .unregister .checkUnfulfilled
+           .root
+    
+    minioc-module: 
+        function $init($a, $b) -- Aufruf sobald $a und $b resolved.
+
+minioc-loader:
+    // ganze Verzeichnisse laden
+    
+    // module:
+    module.exports = function $init($app, $config) { ... }
+
+
+minioc-broadway:
+    // muss erster Aufruf sein
+    //  * verbiegt "use", setzt app.minioc (root container)
+    //  * besetzt minioc.app (=broadway-app), minioc.rootdir
+    app.use(require('minioc_broadway'), { rootdir: __dirname });
+    app.use('./dir1'); ....
+    app.init();
