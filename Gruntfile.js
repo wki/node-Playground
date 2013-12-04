@@ -4,10 +4,26 @@
 
 module.exports = function(grunt) {
     grunt.initConfig({
-        jshint: ['Gruntfile.js', 'lib/**/*.js'],
+        // allow access to pkg.* inside other targets.
+        pkg: grunt.file.readJSON('package.json'),
+        
+        jshint: {
+            'Gruntfile.js': 'Gruntfile.js', 
+            'lib/**/*.js':  'lib/**/*.js',
+        },
+        
+        vows: {
+            all: {
+                options: {},
+                src: ['test/*.js'],
+            },
+        },
     });
     
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-vows');
     
-    grunt.registerTask('default', ['jshint']);
+    grunt.registerTask('default', 'do all steps to build our app', 
+        ['jshint', 'vows']
+    );
 };
